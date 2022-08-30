@@ -369,9 +369,40 @@ class network_t
 /*
     Blck AG mdfctn of MZ code
 */
+    void convoluteBlock(Layer_ag &conv,
+                        int& n, int& c, int& h, int& w,
+                        float* srcData, float** dstData)
+    {
+        Layer_ag tmp = conv;
+        conv.str_h = 1;
+        conv.str_w = 1;
+        conv.pad_h = 3;
+        conv.pad_w = 3;
+        //print(srcData,1,1,5,5);
+        convoluteForward(conv, n,c,h,w, srcData, dstData);
+        //normalize(*dstData, n, c, h, w);
+        print(*dstData,1,1,5,5);
+        conv.str_h = 1;
+        conv.str_w = 1;
+        conv.pad_h = 0;
+        conv.pad_w = 0;
+        conv.kernel_dim = 1;
+        conv.outputs = conv.outputs*4;
+        convoluteForward(conv, n,c,h,w, *dstData, &srcData);
+//        conv.str_h = 1;
+//        conv.str_w = 1;
+//        conv.pad_h = 0;
+//        conv.pad_w = 0;
+//        conv.kernel_dim = 1;
+//        conv.inputs = conv.outputs;
+//        conv.outputs = (int)conv.outputs/4;
+//        printf("(AG) should be: n=%d, out=%d, in=%d, w=%d\n", n, conv.outputs, conv.inputs, w);
+//        convoluteForward(conv, n,c,h,w, srcData, dstData);
+        conv = tmp;
+    }
     void convoluteForward(const Layer_ag &conv,
                           int& n, int& c, int& h, int& w,
-                          value_type* srcData, value_type** dstData)
+                          float* srcData, float** dstData)
     {
         setTensorDesc(srcTensorDesc, tensorFormat, dataType, n, c, h, w);
 
@@ -419,6 +450,7 @@ class network_t
                                                 (cudnnConvolutionFwdAlgo_t)conv.alg,
                                                 &sizeInBytes);
         
+        printf("dziala");
         if (sizeInBytes!=0)
         {
           cudaMalloc(&workSpace,sizeInBytes);
@@ -590,9 +622,14 @@ end AG mdfctn
         convoluteForward(conv[0], n, c, h, w, srcData, &dstData);
         normalize(dstData, n, c, h, w);
 //        
-        convoluteForward(conv_block[0], n, c, h, w, dstData, &srcData);
-        convoluteForward(conv_block[1], n, c, h, w, srcData, &dstData);
-        convoluteForward(conv_block[2], n, c, h, w, dstData, &srcData);
+        std::cout << "test conv block 1\n";
+//        convoluteForward(conv_block[0], n, c, h, w, dstData, &srcData);
+        convoluteBlock(conv_block[0], n, c, h, w, dstData, &srcData);
+//        convoluteForward(conv_block[1], n, c, h, w, dstData, &srcData); //srcData, &dstData);
+        std::cout << "test conv_block 2\n";
+        convoluteBlock(conv_block[1], n, c, h, w, dstData, &srcData); //srcData, &dstData);
+        std::cout << "test conv_block 3\n";
+        convoluteForward(conv_block[2], n, c, h, w, srcData, &dstData); //dstData, &srcData);
         normalize(srcData, n, c, h, w);
 
         convoluteForward(conv[1], n, c, h, w, srcData, &dstData);
@@ -758,33 +795,33 @@ int main() {
 */
 
         Layer_ag conv[4] = {
-                {"conv1",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,              3,96*2^(1-1),3, 1,1, 4,4},
-                {"conv2",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,     96*2^(1-1),96*2^(2-1),3, 1,1, 2,2},
-                {"conv3",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,     96*2^(2-1),96*2^(3-1),3, 1,1, 2,2},
-                {"conv4",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,     96*2^(3-1),96*2^(4-1),3, 1,1, 2,2}
+                {"conv1",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,              3,96*2^(1-1),7, 2,2, 4,4},
+                {"conv2",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,     96*2^(1-1),96*2^(2-1),7, 1,1, 2,2},
+                {"conv3",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,     96*2^(2-1),96*2^(3-1),7, 1,1, 2,2},
+                {"conv4",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,     96*2^(3-1),96*2^(4-1),7, 1,1, 2,2}
         };
         Layer_ag conv_block[18] = {
-            { "conv_block1", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(1-1),96*2^(1-1),3, 1,1, 1,1},
-            { "conv_block2", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(1-1),96*2^(1-1),3, 1,1, 1,1},
-            { "conv_block3", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(1-1),96*2^(1-1),3, 1,1, 1,1},
+            { "conv_block1", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(1-1),96*2^(1-1),7, 1,1, 1,1},
+            { "conv_block2", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(1-1),96*2^(1-1),7, 1,1, 1,1},
+            { "conv_block3", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(1-1),96*2^(1-1),7, 1,1, 1,1},
             //
-            { "conv_block4", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(2-1),96*2^(2-1),3, 1,1, 1,1},
-            { "conv_block5", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(2-1),96*2^(2-1),3, 1,1, 1,1},                       /*WTF?*/
-            { "conv_block6", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(2-1),96*2^(2-1),3, 1,1, 1,1},
+            { "conv_block4", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(2-1),96*2^(2-1),7, 1,1, 1,1},
+            { "conv_block5", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(2-1),96*2^(2-1),7, 1,1, 1,1},                       /*WTF?*/
+            { "conv_block6", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(2-1),96*2^(2-1),7, 1,1, 1,1},
             //
-            { "conv_block7", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
-            { "conv_block8", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
-            { "conv_block9", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
-            {"conv_block10", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
-            {"conv_block11", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
-            {"conv_block12", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
-            {"conv_block13", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
-            {"conv_block14", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
-            {"conv_block15", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
+            { "conv_block7", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),7, 1,1, 1,1},
+            { "conv_block8", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),7, 1,1, 1,1},
+            { "conv_block9", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),7, 1,1, 1,1},
+            {"conv_block10", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),7, 1,1, 1,1},
+            {"conv_block11", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),7, 1,1, 1,1},
+            {"conv_block12", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),7, 1,1, 1,1},
+            {"conv_block13", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),7, 1,1, 1,1},
+            {"conv_block14", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),7, 1,1, 1,1},
+            {"conv_block15", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),7, 1,1, 1,1},
             //
-            {"conv_block16", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(4-1),96*2^(4-1),3, 1,1, 1,1},
-            {"conv_block17", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(4-1),96*2^(4-1),3, 1,1, 1,1},
-            {"conv_block18", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(4-1),96*2^(4-1),3, 1,1, 1,1},
+            {"conv_block16", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(4-1),96*2^(4-1),7, 1,1, 1,1},
+            {"conv_block17", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(4-1),96*2^(4-1),7, 1,1, 1,1},
+            {"conv_block18", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(4-1),96*2^(4-1),7, 1,1, 1,1},
         };
 /*
 end AG mdfctn
