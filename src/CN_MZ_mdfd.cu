@@ -758,33 +758,33 @@ int main() {
 */
 
         Layer_ag conv[4] = {
-                {"conv1",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,   3, 96,3, 1,1, 4,4},
-                {"conv2",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,  96,192,3, 1,1, 2,2},
-                {"conv3",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 192,384,3, 1,1, 2,2},
-                {"conv4",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 384,768,3, 1,1, 2,2}
+                {"conv1",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,              3,96*2^(1-1),3, 1,1, 4,4},
+                {"conv2",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,     96*2^(1-1),96*2^(2-1),3, 1,1, 2,2},
+                {"conv3",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,     96*2^(2-1),96*2^(3-1),3, 1,1, 2,2},
+                {"conv4",CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM,     96*2^(3-1),96*2^(4-1),3, 1,1, 2,2}
         };
         Layer_ag conv_block[18] = {
-            { "conv_block1", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD, 96,96,3, 1,1, 1,1},
-            { "conv_block2", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD, 96,96,3, 1,1, 1,1},
-            { "conv_block3", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD, 96,96,3, 1,1, 1,1},
+            { "conv_block1", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(1-1),96*2^(1-1),3, 1,1, 1,1},
+            { "conv_block2", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(1-1),96*2^(1-1),3, 1,1, 1,1},
+            { "conv_block3", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(1-1),96*2^(1-1),3, 1,1, 1,1},
             //
-            { "conv_block4", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD, 192,192,3, 1,1, 1,1},
-            { "conv_block5", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 192,192,3, 1,1, 1,1},                       /*WTF?*/
-            { "conv_block6", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD, 192,192,3, 1,1, 1,1},
+            { "conv_block4", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(2-1),96*2^(2-1),3, 1,1, 1,1},
+            { "conv_block5", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(2-1),96*2^(2-1),3, 1,1, 1,1},                       /*WTF?*/
+            { "conv_block6", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(2-1),96*2^(2-1),3, 1,1, 1,1},
             //
-            { "conv_block7", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 384,384,3, 1,1, 1,1},
-            { "conv_block8", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 384,384,3, 1,1, 1,1},
-            { "conv_block9", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 384,384,3, 1,1, 1,1},
-            {"conv_block10", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 384,384,3, 1,1, 1,1},
-            {"conv_block11", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 384,384,3, 1,1, 1,1},
-            {"conv_block12", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 384,384,3, 1,1, 1,1},
-            {"conv_block13", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 384,384,3, 1,1, 1,1},
-            {"conv_block14", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 384,384,3, 1,1, 1,1},
-            {"conv_block15", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 384,384,3, 1,1, 1,1},
+            { "conv_block7", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
+            { "conv_block8", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
+            { "conv_block9", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
+            {"conv_block10", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
+            {"conv_block11", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
+            {"conv_block12", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
+            {"conv_block13", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
+            {"conv_block14", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
+            {"conv_block15", CUDNN_CONVOLUTION_FWD_ALGO_IMPLICIT_GEMM, 96*2^(3-1),96*2^(3-1),3, 1,1, 1,1},
             //
-            {"conv_block16", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD, 768,768,3, 1,1, 1,1},
-            {"conv_block17", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD, 768,768,3, 1,1, 1,1},
-            {"conv_block18", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD, 768,768,3, 1,1, 1,1},
+            {"conv_block16", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(4-1),96*2^(4-1),3, 1,1, 1,1},
+            {"conv_block17", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(4-1),96*2^(4-1),3, 1,1, 1,1},
+            {"conv_block18", CUDNN_CONVOLUTION_FWD_ALGO_WINOGRAD,      96*2^(4-1),96*2^(4-1),3, 1,1, 1,1},
         };
 /*
 end AG mdfctn
