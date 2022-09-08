@@ -7,7 +7,7 @@
 #include <opencv2/highgui.hpp>
 
 
-extern void lib_fnctn( cv::Mat, int );
+extern void lib_fnctn( int );
 extern cv::VideoCapture* openVideo( void ); 
 extern void captureFrame( cv::Mat *,cv::VideoCapture );
 extern void giveGray( cv::Mat *, cv::Mat *);

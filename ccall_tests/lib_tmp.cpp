@@ -7,12 +7,12 @@
 
 using namespace cv;
 
-void lib_fnctn( cv::Mat image,int dana_int ) 
+extern int lib_fnctn( void ) 
 {
-  std::cout << "\nThis function seems to work" << dana_int << "\n"
+  std::cout << "\nThis function seems to work" << 1 << "\n"
     "OpenCV version " << CV_VERSION << std::endl;
 
-  return;
+  return 1;
 }
 
 cv::VideoCapture* openVideo( void )
@@ -64,16 +64,15 @@ void copyFrame( cv::Mat *prv_img,cv::Mat *img )
 }
 
 void opticalFlowEstimation( 
-    cv::Mat* img, cv::Mat * prev_img,
-    std::vector<cv::Point2f> *points,std::vector<cv::Point2f> *prev_points, std::vector<uchar> *status )
+    cv::Mat* prev_img, cv::Mat * img,
+    std::vector<cv::Point2f> *prev_points,std::vector<cv::Point2f> *points, std::vector<uchar> *status )
 {
   std::vector<float> err;
   cv::TermCriteria termcrit(TermCriteria::COUNT|TermCriteria::EPS,20,0.01);
+  cv::Size winSize(31,31);
 
-  calcOpticalFlowPyrLK( *prev_img, *img, *points, *prev_points, 
-	*status, err, cvSize(31,31), 3, termcrit, 0, 1e-3); //, winSize, 3, termcrit, 0, 0.001);
   calcOpticalFlowPyrLK( *img, *prev_img, *prev_points, *points, 
-	*status, err, cvSize(31,31), 3, termcrit, 0, 1e-3); //, winSize, 3, termcrit, 0, 0.001);
+	*status, err, winSize, 3, termcrit, 0, 0.001); //, winSize, 3, termcrit, 0, 0.001);
 /*  for (i=0;i<points.size(),i++) {
     points
   }*/

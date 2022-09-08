@@ -38,6 +38,7 @@ int main( int argc, char **argv )
         {
         case 'r':
 	    giveInitPoints( &gray,&points );
+	    giveInitPoints( &gray,&prev_points );
 	    cv::imshow("Testing window",gray);
 	    prev_points.resize(points.size());
             break;
@@ -46,16 +47,18 @@ int main( int argc, char **argv )
         case 'n':
             break;
         }
-	if (points.size() > 5) opticalFlowEstimation( &prev_gray,&gray,&points,&prev_points,&status );
+	
+	if (points.size() > 1) opticalFlowEstimation( &prev_gray,&gray,&prev_points,&points,&status );
   	for ( unsigned int i=0; i<points.size(); i++ ) {
-  	        cv::circle( image,points[i],3,cv::Scalar(230,0,0),-1,8 );
+  	        if (status[i]) cv::circle( image,points[i],3,cv::Scalar(230,0,0),-1,8 );
   	}
 
 
 	cv::imshow("Testing window",image);
 
-	copyFrame( &prev_gray,&gray );
-	std::swap(prev_points,points);
+//	copyFrame( &prev_gray,&gray );
+	cv::swap( prev_gray,gray );
+	std::swap( prev_points,points );
   }
 
   return 1;
