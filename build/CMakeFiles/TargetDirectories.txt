@@ -1,0 +1,7 @@
+/home/agrucelski/Dokumenty/git_mw/cpp_frst_attmpt/build/CMakeFiles/tst.dir
+/home/agrucelski/Dokumenty/git_mw/cpp_frst_attmpt/build/CMakeFiles/edit_cache.dir
+/home/agrucelski/Dokumenty/git_mw/cpp_frst_attmpt/build/CMakeFiles/rebuild_cache.dir
+/home/agrucelski/Dokumenty/git_mw/cpp_frst_attmpt/build/CMakeFiles/list_install_components.dir
+/home/agrucelski/Dokumenty/git_mw/cpp_frst_attmpt/build/CMakeFiles/install.dir
+/home/agrucelski/Dokumenty/git_mw/cpp_frst_attmpt/build/CMakeFiles/install/local.dir
+/home/agrucelski/Dokumenty/git_mw/cpp_frst_attmpt/build/CMakeFiles/install/strip.dir
