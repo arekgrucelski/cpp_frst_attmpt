@@ -14,6 +14,6 @@ g++ -shared -o libtst.so tst.o
 ##`pkg-config --cflags --libs julia`
 ##`pkg-config --cflags --libs opencv`
 
-g++ -std=c++1z -L/opt/julia-1.6.0/lib/ -L/home/agrucelski/Dokumenty/git_mw/cpp_frst_attmpt/ -I/opt/julia-1.6.0/include/julia/ -DCxxJULIA -Wall -o test src/main.cpp -ltst -ljulia 
+g++ -std=c++1z -L/opt/julia-1.6.0/lib/ -L/home/agrucelski/.julia/artifacts/4fcd159fccd2f12b8c8c3da884709dc1de7a30ae/lib/ -L/home/agrucelski/Dokumenty/git_mw/cpp_frst_attmpt/ -I/opt/julia-1.6.0/include/julia/ -DCxxJULIA -Wall -o test src/main.cpp -ltst -ljulia -lcxxwrap_julia
 ##`pkg-config --cflags --libs cxxwrap_julia`
 ##`pkg-config --cflags --libs opencv`
