@@ -20,5 +20,6 @@ mTm = myTime(10,10)
 
 # Call greet and show the result
 @show CppAGIc.greet()
+@elapsed CppAGIc.start_all()
 #@show CppHello.lib_fnctn()
 

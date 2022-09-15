@@ -7,10 +7,8 @@
 #ifndef tst_h__
 #define tst_h__
 
-#define WIDTH 5000
-//640
-#define HEIGHT 4000
-//480
+#define WIDTH 7680
+#define HEIGHT 4320
 #define KERNEL_SIZE 3
 
 /*
