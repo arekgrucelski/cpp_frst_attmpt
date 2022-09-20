@@ -26,8 +26,8 @@ g++ -shared -o libtst.so tst.o
 ##`pkg-config --cflags --libs julia`
 ##`pkg-config --cflags --libs opencv`
 
-g++ -std=c++1z -L$jllib_drnm -L$cxxwrap_drnm -L$tst_drnm -I/opt/julia-1.6.0/include/julia/ -DCxxJULIA -Wall -o test src/main.cpp -ltst -ljulia -lcxxwrap_julia
 ##`pkg-config --cflags --libs cxxwrap_julia`
+g++ -std=c++1z -I$jlhdr_drnm -L$jllib_drnm -L$cxxwrap_drnm -L$tst_drnm -DCxxJULIA -Wall -o test src/main.cpp -ltst -ljulia -lcxxwrap_julia
 ##`pkg-config --cflags --libs opencv`
 
 #echo $jlhdr_drnm

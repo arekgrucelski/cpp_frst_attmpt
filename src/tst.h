@@ -7,8 +7,8 @@
 #ifndef tst_h__
 #define tst_h__
 
-#define WIDTH 7680
-#define HEIGHT 4320
+#define WIDTH 1000 //7680
+#define HEIGHT 1000 //4320
 #define KERNEL_SIZE 3
 
 /*
@@ -27,6 +27,15 @@ struct myTime
 
 extern void start_all( void );
 //
+/*extern "C" {
+    void check_2darray( double *, int i, int j );
+   }*/
+//
+extern "C" {
+    void fillData( float[][HEIGHT],float[][3] );
+    void convolve( float[][HEIGHT],float[][HEIGHT],float[][3] );
+    void compareData( float[][HEIGHT],float[][HEIGHT] );
+}
 extern void fillData( float**,float** );
 extern void compareData( float**, float** );
 extern void convolve( float** ,float** ,float** );

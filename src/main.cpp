@@ -25,6 +25,8 @@ int main( int argc,char** argv )
 {
   std::cout << greet();
   
+//  double a[][] = {{1.0,2.0,3.0,4.0},{2,1,3,4}};
+//  check_2darray(a,2,2);
   start_all();
 //  /*
 //   * beginning of tests 
