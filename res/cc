@@ -1,0 +1,80 @@
+480 480
+hello, world
+(C++ lib) Total time: 9.08 (where init data 3.616, convolution 5.046, conparison 0.417) [ms]
+
+This function seems to work: 1
+Time: 10 , 0x7fffeebcd2ec
+(CxxWrap) Total time: 9.828 (where init data 4.525, convolution 4.919, conparison 0.383) [ms]
+(multi ccall) Total time 10.44 (where init data 5.45, convolution 4.58, conparison 0.41) [ms])
+600 600
+hello, world
+(C++ lib) Total time: 8.945 (where init data 3.631, convolution 4.896, conparison 0.417) [ms]
+
+This function seems to work: 1
+Time: 10 , 0x7ffcf12d89ec
+(CxxWrap) Total time: 9.846 (where init data 4.544, convolution 4.883, conparison 0.417) [ms]
+(multi ccall) Total time 10.68 (where init data 5.56, convolution 4.72, conparison 0.41) [ms])
+720 720
+hello, world
+(C++ lib) Total time: 8.89 (where init data 3.583, convolution 4.918, conparison 0.389) [ms]
+
+This function seems to work: 1
+Time: 10 , 0x7ffc2b7fcbbc
+(CxxWrap) Total time: 9.859 (where init data 4.494, convolution 4.946, conparison 0.418) [ms]
+(multi ccall) Total time 10.44 (where init data 5.47, convolution 4.56, conparison 0.41) [ms])
+840 840
+hello, world
+(C++ lib) Total time: 8.97 (where init data 3.602, convolution 4.939, conparison 0.428) [ms]
+
+This function seems to work: 1
+Time: 10 , 0x7fff3d2b8e3c
+(CxxWrap) Total time: 9.864 (where init data 4.51, convolution 4.938, conparison 0.416) [ms]
+(multi ccall) Total time 10.40 (where init data 5.46, convolution 4.53, conparison 0.41) [ms])
+960 960
+hello, world
+(C++ lib) Total time: 9.039 (where init data 3.579, convolution 5.077, conparison 0.382) [ms]
+
+This function seems to work: 1
+Time: 10 , 0x7ffe748b91cc
+(CxxWrap) Total time: 9.899 (where init data 4.507, convolution 5.005, conparison 0.387) [ms]
+(multi ccall) Total time 12.94 (where init data 7.99, convolution 4.55, conparison 0.40) [ms])
+1080 1080
+hello, world
+(C++ lib) Total time: 8.941 (where init data 3.618, convolution 4.905, conparison 0.417) [ms]
+
+This function seems to work: 1
+Time: 10 , 0x7fff5e72b56c
+(CxxWrap) Total time: 9.803 (where init data 4.491, convolution 4.925, conparison 0.385) [ms]
+(multi ccall) Total time 12.91 (where init data 7.98, convolution 4.52, conparison 0.40) [ms])
+1200 1200
+hello, world
+(C++ lib) Total time: 8.918 (where init data 3.62, convolution 4.882, conparison 0.415) [ms]
+
+This function seems to work: 1
+Time: 10 , 0x7fff59470c4c
+(CxxWrap) Total time: 9.905 (where init data 4.515, convolution 4.972, conparison 0.418) [ms]
+(multi ccall) Total time 12.91 (where init data 8.00, convolution 4.51, conparison 0.41) [ms])
+1320 1320
+hello, world
+(C++ lib) Total time: 8.898 (where init data 3.583, convolution 4.925, conparison 0.389) [ms]
+
+This function seems to work: 1
+Time: 10 , 0x7ffe4597337c
+(CxxWrap) Total time: 9.837 (where init data 4.524, convolution 4.93, conparison 0.383) [ms]
+(multi ccall) Total time 12.98 (where init data 8.04, convolution 4.54, conparison 0.41) [ms])
+1440 1440
+hello, world
+(C++ lib) Total time: 8.917 (where init data 3.613, convolution 4.922, conparison 0.381) [ms]
+
+This function seems to work: 1
+Time: 10 , 0x7fffd4e8916c
+(CxxWrap) Total time: 9.808 (where init data 4.487, convolution 4.934, conparison 0.386) [ms]
+(multi ccall) Total time 13.12 (where init data 8.07, convolution 4.64, conparison 0.40) [ms])
+1560 1560
+hello, world
+(C++ lib) Total time: 8.926 (where init data 3.589, convolution 4.947, conparison 0.389) [ms]
+
+This function seems to work: 1
+Time: 10 , 0x7fff62ac0d5c
+(CxxWrap) Total time: 9.854 (where init data 4.503, convolution 4.967, conparison 0.383) [ms]
+(multi ccall) Total time 13.19 (where init data 8.15, convolution 4.64, conparison 0.41) [ms])

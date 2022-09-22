@@ -7,8 +7,8 @@
 #ifndef tst_h__
 #define tst_h__
 
-#define WIDTH 1000 //7680
-#define HEIGHT 1000 //4320
+#define WIDTH 1560
+#define HEIGHT 1560
 #define KERNEL_SIZE 3
 
 /*
@@ -25,7 +25,7 @@ struct myTime
 };
 #endif // myTime_struct__
 
-extern void start_all( void );
+extern void start_all( const char *L );
 //
 /*extern "C" {
     void check_2darray( double *, int i, int j );

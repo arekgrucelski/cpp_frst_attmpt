@@ -32,8 +32,16 @@ g++ -std=c++1z -I$jlhdr_drnm -L$jllib_drnm -L$cxxwrap_drnm -L$tst_drnm -DCxxJULI
 
 #echo $jlhdr_drnm
 #echo $jllib_drnm
-echo "C++ "
-./test
+for x in {4..13}
+do
+    let WIDTH=120*x # 6
+    let HEIGHT=120*x
+    echo $WIDTH $HEIGHT
+    sed -i "10s/#define W.*/#define WIDTH $WIDTH/" src/tst.h
+    sed -i "11s/#define H.*/#define HEIGHT $HEIGHT/" src/tst.h
+    #echo "C++ "
+    ./test
 
-echo "Julia "
-julia src/hello.jl
+    #echo "Julia "
+    julia src/hello.jl $HEIGHT $WIDTH 
+done 

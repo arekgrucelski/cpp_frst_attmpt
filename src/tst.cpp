@@ -36,8 +36,15 @@ struct myTime
 
 
 
-void start_all()
+void start_all(const char *L)
 {
+  std::string lngg;
+  if (*L=='C') {
+    lngg = "C++ lib";
+  }
+  else {
+    lngg = "CxxWrap";
+  }
   /*
    * beginning of tests 
    * */
@@ -68,11 +75,11 @@ void start_all()
   /*
    * end of tests 
    * */
-  std::cout << "(AG) Total time: " 
-    << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() 
-    << " (where init data " << std::chrono::duration_cast<std::chrono::milliseconds>(initData-begin).count() 
-    << ", convolution " << std::chrono::duration_cast<std::chrono::milliseconds>(convolution-initData).count() 
-    << ", conparison " << std::chrono::duration_cast<std::chrono::milliseconds>(end-convolution).count() 
+  std::cout << "(" << lngg << ") Total time: " 
+    << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() / 1000.0 
+    << " (where init data " << std::chrono::duration_cast<std::chrono::microseconds>(initData-begin).count() / 1000.0 
+    << ", convolution " << std::chrono::duration_cast<std::chrono::microseconds>(convolution-initData).count() / 1000.0 
+    << ", conparison " << std::chrono::duration_cast<std::chrono::microseconds>(end-convolution).count() / 1000.0 
     << ") [ms]" << std::endl;
 }
 
